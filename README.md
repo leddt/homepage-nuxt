@@ -1,19 +1,6 @@
-# Hello Edge
+# Homepage
 
-A minimal [Nuxt](https://nuxt.com) starter deployed on the Edge using [NuxtHub](https://hub.nuxt.com).
-
-https://hello.nuxt.dev
-
-<a href="https://hello.nuxt.dev">
-<img src="https://github.com/nuxt-hub/hello-edge/assets/904724/99d1bd54-ef7e-4ac9-83ad-0a290f85edcf" alt="Hello World template for NuxtHub" />
-</a>
-
-## Features
-
-- Server-Side rendering on Cloudflare Workers
-- ESLint setup
-- Ready to add a database, blob and KV storage
-- One click deploy on 275+ locations for free
+A simple [Nuxt](https://nuxt.com) app that I'm using as [my homepage](https://homepage.leddt.com).
 
 ## Setup
 
@@ -21,12 +8,6 @@ Make sure to install the dependencies with [pnpm](https://pnpm.io/installation#u
 
 ```bash
 pnpm install
-```
-
-You can update the main text displayed by creating a `.env`:
-
-```bash
-NUXT_PUBLIC_HELLO_TEXT="Hello my world!"
 ```
 
 ## Development Server

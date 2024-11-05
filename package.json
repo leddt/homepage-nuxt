@@ -1,0 +1,42 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "npx nuxthub preview",
+    "deploy": "npx nuxthub deploy",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@nuxt/eslint": "^0.6.1",
+    "@nuxt/icon": "^1.6.1",
+    "@nuxthub/core": "^0.8.5",
+    "@nuxtjs/color-mode": "^3.5.2",
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@tanstack/vue-query": "^5.59.17",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "lucide-vue-next": "^0.454.0",
+    "nuxt": "^3.14.0",
+    "radix-vue": "^1.9.8",
+    "rss-parser": "^3.13.0",
+    "shadcn-nuxt": "^0.11.2",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss-animate": "^1.0.7",
+    "vue": "^3.5.12",
+    "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@nuxt/eslint-config": "^0.6.1",
+    "eslint": "^9.14.0",
+    "typescript": "^5.6.3",
+    "vue-tsc": "^2.1.10",
+    "wrangler": "^3.84.1"
+  },
+  "packageManager": "pnpm@9.12.3"
+}

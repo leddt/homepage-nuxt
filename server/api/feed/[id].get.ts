@@ -1,4 +1,4 @@
-import Parser from 'rss-parser'
+import { extract } from '@extractus/feed-extractor'
 
 type FeedItem = {
   title: string
@@ -23,16 +23,35 @@ export default defineEventHandler(async (event) => {
 
   const feedUrl = feeds[id as keyof typeof feeds]
 
-  const parser = new Parser()
-  const feed = await parser.parseURL(feedUrl)
+  const feed = await extract(feedUrl, {
+    getExtraEntryFields: (entry) => {
+      // console.log(entry)
+      return {
+        comments: 'comments' in entry ? entry.comments as string : undefined,
+      }
+    },
+  })
 
-  return feed.items
+  if (!feed.entries) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'No entries found',
+    })
+  }
+
+  return feed.entries
     .filter(item => item.title && item.link)
     .map<FeedItem>(item => ({
       title: item.title || '',
       link: item.link || '',
-      date: item.isoDate || '',
+      date: item.published || '',
       comments: item.comments,
-    // raw: item,
+      // raw: item,
     }))
 })
+
+declare module '@extractus/feed-extractor' {
+  interface FeedEntry {
+    comments?: string
+  }
+}

@@ -71,7 +71,7 @@ function formatDate(now: Date, date: string | number, strict = false) {
             <li
               v-for="item in feed.items"
               :key="item.link"
-              class="transition-all hover:bg-muted/50 px-2 py-1 rounded-lg"
+              class="group transition-all hover:bg-muted/50 px-2 py-1 rounded-lg"
             >
               <NuxtLink :href="item.link" target="_blank" class="font-medium hover:underline block">
                 {{ item.title }}
@@ -85,7 +85,7 @@ function formatDate(now: Date, date: string | number, strict = false) {
                   v-if="item.comments"
                   :href="item.comments"
                   target="_blank"
-                  class="flex items-center hover:underline hover:text-primary"
+                  class="flex items-center hover:underline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <Icon name="mdi:message" class="w-4 h-4 mr-1" />
                   <span>Comments</span>

@@ -50,7 +50,7 @@ function formatDate(now: Date, date: string | number, strict = false) {
   <div class="container mx-auto p-4 max-w-7xl">
     <div class="grid md:grid-cols-2 gap-4 lg:gap-8">
       <Card v-for="(feed, index) in feeds" :key="index" class="transition-all hover:shadow-lg">
-        <CardHeader :class="feed.color" class="sticky top-0 bg-white z-10 rounded-lg">
+        <CardHeader :class="feed.color" class="sticky top-0 bg-white z-10 rounded-t-lg border-b pb-2 mb-4">
           <div class="flex flex-row items-center justify-between">
             <CardTitle class="flex items-center gap-2">
               <Icon :name="feed.icon" class="w-6 h-6" />
@@ -73,7 +73,7 @@ function formatDate(now: Date, date: string | number, strict = false) {
               :key="item.link"
               class="group transition-all hover:bg-muted/50 px-2 py-1 rounded-lg"
             >
-              <NuxtLink :href="item.link" target="_blank" class="font-medium hover:underline block">
+              <NuxtLink :href="item.link" target="_blank" class="text-lg hover:underline block">
                 {{ item.title }}
               </NuxtLink>
               <div class="flex items-center justify-between mt-1 text-sm text-muted-foreground">

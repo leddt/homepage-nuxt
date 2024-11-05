@@ -45,19 +45,19 @@ function formatDate(now: Date, date: string | number, strict = false) {
 <template>
   <div class="container mx-auto p-4">
     <div class="grid md:grid-cols-2 gap-8">
-      <UiCard v-for="(feed, index) in feeds" :key="index">
-        <UiCardHeader>
+      <Card v-for="(feed, index) in feeds" :key="index">
+        <CardHeader>
           <div class="flex flex-row items-center justify-between">
-            <UiCardTitle>{{ feed.title }}</UiCardTitle>
-            <UiButton variant="ghost" size="icon" @click="feed.refetch">
+            <CardTitle>{{ feed.title }}</CardTitle>
+            <Button variant="ghost" size="icon" @click="feed.refetch">
               <Icon name="mdi:refresh" class="w-5 h-5" />
-            </UiButton>
+            </Button>
           </div>
           <ClientOnly>
             <span class="text-sm text-muted-foreground">{{ formatDate(now, feed.updatedAt) }}</span>
           </ClientOnly>
-        </UiCardHeader>
-        <UiCardContent>
+        </CardHeader>
+        <CardContent>
           <ul v-if="feed.items">
             <li v-for="(item, itemIndex) in feed.items" :key="item.link">
               <NuxtLink :href="item.link" target="_blank" class="font-medium hover:underline">
@@ -66,7 +66,7 @@ function formatDate(now: Date, date: string | number, strict = false) {
               <div class="flex items-center mt-1 text-sm text-muted-foreground">
                 <Icon name="mdi:calendar" class="w-4 h-4 mr-1" />
                 <span :title="item.date">{{ formatDate(now, item.date, true) }}</span>
-                <UiSeparator v-if="item.comments" class="mx-2 h-4" orientation="vertical" />
+                <Separator v-if="item.comments" class="mx-2 h-4" orientation="vertical" />
                 <NuxtLink
                   v-if="item.comments"
                   :href="item.comments"
@@ -77,11 +77,11 @@ function formatDate(now: Date, date: string | number, strict = false) {
                   <span>Comments</span>
                 </NuxtLink>
               </div>
-              <UiSeparator v-if="itemIndex < feed.items.length - 1" class="my-2" />
+              <Separator v-if="itemIndex < feed.items.length - 1" class="my-2" />
             </li>
           </ul>
-        </UiCardContent>
-      </UiCard>
+        </CardContent>
+      </Card>
     </div>
   </div>
 </template>

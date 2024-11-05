@@ -34,6 +34,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  shadcn: {
+    componentDir: 'app/components/ui',
+  },
 
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',

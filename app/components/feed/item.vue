@@ -24,7 +24,7 @@ const openLink = (item: FeedItem) => {
 <template>
   <li
     tabindex="0"
-    class="group transition-colors sm:hover:bg-muted/50 px-2 py-1 rounded-lg"
+    class="group transition-colors sm:hover:bg-muted/50 sm:hover:shadow-inner px-2 py-1 rounded-lg"
     :class="{ 'outline outline-1 focus:outline-2 outline-blue-500': isHighlighted }"
     @keydown.self.enter="openLink(item)"
     @keydown.self.space="openLink(item)"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const feeds = [
   useFeed('hn', 'Hacker News', 'ion:logo-hackernews', 'text-orange-500'),
-  useFeed('sd', 'Slashdot', 'simple-icons:slashdot', 'text-green-500'),
+  useFeed('sd', 'Slashdot', 'simple-icons:slashdot', 'text-emerald-500'),
 ]
 </script>
 

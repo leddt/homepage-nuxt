@@ -28,6 +28,7 @@ export default defineNuxtConfig({
       helloText: 'Hello from the Edge 👋',
     },
   },
+
   // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4
   future: { compatibilityVersion: 4 },
   compatibilityDate: '2024-07-30',

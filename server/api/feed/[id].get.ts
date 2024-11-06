@@ -1,27 +1,24 @@
 import { extract } from '@extractus/feed-extractor'
 
-type FeedItem = {
-  title: string
-  link: string
-  date: string
-  comments?: string
-}
-
 const feeds = {
   hn: 'https://news.ycombinator.com/rss',
   sd: 'https://slashdot.org/index.rss',
 }
 
-export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, 'id')
+function assertSupportedFeed(id: string | undefined): asserts id is keyof typeof feeds {
   if (!id || !(id in feeds)) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Invalid feed id',
     })
   }
+}
 
-  const feedUrl = feeds[id as keyof typeof feeds]
+export default defineEventHandler(async (event) => {
+  const id = getRouterParam(event, 'id')
+
+  assertSupportedFeed(id)
+  const feedUrl = feeds[id]
 
   const feed = await extract(feedUrl, {
     getExtraEntryFields: (entry) => {

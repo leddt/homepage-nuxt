@@ -1,3 +1,9 @@
+<script setup lang="ts">
+useHead({
+  title: 'Homepage',
+})
+</script>
+
 <template>
   <NuxtRouteAnnouncer />
   <NuxtLoadingIndicator />

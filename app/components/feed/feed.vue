@@ -27,7 +27,7 @@ const now = useNow({ interval: 5000 })
       <TransitionGroup
         v-if="items"
         tag="ul"
-        class="-mx-2"
+        class="-mx-2 mt-px"
         name="list"
       >
         <FeedItem v-for="item in items" :key="item.link" :item />

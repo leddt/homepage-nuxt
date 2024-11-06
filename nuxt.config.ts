@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxt/icon',
     '@vueuse/nuxt',
+    '@pinia/nuxt',
   ],
 
   // https://devtools.nuxt.com

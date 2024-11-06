@@ -18,6 +18,7 @@
     "@nuxthub/core": "^0.8.5",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "@pinia/nuxt": "^0.7.0",
     "@tanstack/vue-query": "^5.59.17",
     "@vueuse/core": "^11.2.0",
     "@vueuse/nuxt": "^11.2.0",

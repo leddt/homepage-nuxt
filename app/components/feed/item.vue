@@ -1,14 +1,30 @@
 <script setup lang="ts">
-defineProps<{
+import { useStore } from '~/composables/store'
+
+const props = defineProps<{
   item: FeedItem
 }>()
 
+defineEmits<{
+  open: [target: ItemElement]
+}>()
+
 const now = useNow({ interval: 5000 })
+const store = useStore()
+
+const isHighlighted = computed(() => store.highlightedItem?.link === props.item.link)
+const highlightedElement = computed(() => isHighlighted.value ? store.highlightedElement : null)
 </script>
 
 <template>
-  <li class="group transition-all sm:hover:bg-muted/50 px-2 py-1 rounded-lg">
-    <NuxtLink :href="item.link" target="_blank" class="text-lg hover:underline block">
+  <li class="group transition-all sm:hover:bg-muted/50 px-2 py-1 rounded-lg" :class="{ 'outline outline-1 outline-blue-500': isHighlighted }">
+    <NuxtLink
+      :href="item.link"
+      target="_blank"
+      class="text-lg hover:underline block"
+      :class="{ underline: highlightedElement === 'link' }"
+      @mouseup="store.setHighlightedItem(item, 'link')"
+    >
       {{ item.title }}
     </NuxtLink>
     <div class="flex items-center justify-between gap-2 mt-1 text-sm text-muted-foreground">
@@ -21,6 +37,8 @@ const now = useNow({ interval: 5000 })
         :href="item.comments"
         target="_blank"
         class="flex items-center hover:underline hover:text-primary sm:opacity-0 group-hover:opacity-100 transition-opacity"
+        :class="{ 'underline sm:opacity-100': highlightedElement === 'comments' }"
+        @mouseup="store.setHighlightedItem(item, 'comments')"
       >
         <Icon name="mdi:message" class="w-4 h-4 mr-1" />
         <span>Comments</span>

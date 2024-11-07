@@ -15,8 +15,13 @@ const now = useNow({ interval: 5000 })
           <Icon :name="icon" class="w-6 h-6" />
           {{ title }}
         </CardTitle>
-        <Button variant="ghost" size="icon" @click="refetch">
-          <Icon name="mdi:refresh" class="w-5 h-5" />
+        <Button
+          variant="ghost"
+          size="icon"
+          class="group"
+          @click="refetch"
+        >
+          <Icon name="mdi:refresh" class="w-5 h-5 transition-transform group-active:rotate-180 group-hover:rotate-45" />
         </Button>
       </div>
       <span class="text-xs opacity-75">

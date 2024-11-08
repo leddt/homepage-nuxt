@@ -14,9 +14,12 @@ const store = useStore()
 
 const isHighlighted = computed(() => store.highlightedItem?.link === props.item.link)
 const highlightedElement = computed(() => isHighlighted.value ? store.highlightedElement : null)
+const isLinkVisited = computed(() => store.isVisited(props.item, 'link'))
+const isCommentsVisited = computed(() => store.isVisited(props.item, 'comments'))
 
 const openLink = (item: FeedItem) => {
   store.setHighlightedItem(item, 'link')
+  store.markVisited(item, 'link')
   window.open(item.link, '_blank')
 }
 </script>
@@ -24,21 +27,33 @@ const openLink = (item: FeedItem) => {
 <template>
   <li
     tabindex="0"
-    class="group transition-colors sm:hover:bg-muted/50 sm:hover:shadow-inner px-2 py-1 rounded-lg"
+    class="group transition-colors sm:hover:bg-muted/50 sm:hover:shadow-inner pl-6 pr-2 py-1 rounded-lg"
     :class="{ 'outline outline-1 focus-visible:outline-2 outline-blue-500': isHighlighted }"
     @keydown.self.enter="openLink(item)"
     @keydown.self.space="openLink(item)"
   >
-    <NuxtLink
-      tabindex="-1"
-      :href="item.link"
-      target="_blank"
-      class="text-lg hover:underline block"
-      :class="{ underline: highlightedElement === 'link' }"
-      @mouseup="store.setHighlightedItem(item, 'link')"
-    >
-      {{ item.title }}
-    </NuxtLink>
+    <div class="relative">
+      <ClientOnly>
+        <Icon
+          v-if="isLinkVisited"
+          name="mdi:check"
+          class="absolute w-4 h-4 -left-5 top-2 text-slate-400"
+        />
+      </ClientOnly>
+      <NuxtLink
+        tabindex="-1"
+        :href="item.link"
+        target="_blank"
+        class="text-lg hover:underline block"
+        :class="{
+          underline: highlightedElement === 'link',
+        }"
+        @mouseup="store.setHighlightedItem(item, 'link')"
+        @click="store.markVisited(item, 'link')"
+      >
+        {{ item.title }}
+      </NuxtLink>
+    </div>
     <div class="flex items-center justify-between gap-2 mt-1 text-sm text-muted-foreground">
       <span class="flex items-center">
         <Icon name="mdi:calendar" class="w-4 h-4 mr-1" />
@@ -51,7 +66,15 @@ const openLink = (item: FeedItem) => {
         class="flex items-center hover:underline hover:text-primary sm:opacity-0 group-hover:opacity-100 group-focus:opacity-100 focus:opacity-100 transition-opacity"
         :class="{ 'underline sm:opacity-100': highlightedElement === 'comments' }"
         @mouseup="store.setHighlightedItem(item, 'comments')"
+        @click="store.markVisited(item, 'comments')"
       >
+        <ClientOnly>
+          <Icon
+            v-if="isCommentsVisited"
+            name="mdi:check"
+            class="w-4 h-4 text-slate-400"
+          />
+        </ClientOnly>
         <Icon name="mdi:message" class="w-4 h-4 mr-1" />
         <span>Comments</span>
       </NuxtLink>

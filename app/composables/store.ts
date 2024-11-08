@@ -42,20 +42,23 @@ export const useStore = defineStore('feed', () => {
     })
   }
 
-  function isVisited(item: FeedItem, element: ItemElement) {
-    const link = visitedLinks.value.find(link => link.link === item.link && link.element === element)
+  function isVisited(item: FeedItem, element?: ItemElement) {
+    const link = visitedLinks.value.find(link => link.link === item.link && (element === undefined || link.element === element))
     if (!link) return false
 
     // Check if link has expired
     return Date.now() - link.timestamp < WEEK_IN_MS
   }
 
+  function isHighlighted(item: FeedItem, element?: ItemElement) {
+    return highlightedItem.value?.link === item.link && (element === undefined || highlightedElement.value === element)
+  }
+
   return {
-    highlightedItem: readonly(highlightedItem),
-    highlightedElement: readonly(highlightedElement),
     setHighlightedItem,
     clearHighlightedItem,
     markVisited,
     isVisited,
+    isHighlighted,
   }
 })

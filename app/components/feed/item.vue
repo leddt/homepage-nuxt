@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useStore } from '~/composables/store'
 
-const props = defineProps<{
+defineProps<{
   item: FeedItem
 }>()
 
@@ -10,16 +10,16 @@ defineEmits<{
 }>()
 
 const now = useNow({ interval: 5000 })
-const store = useStore()
-
-const isHighlighted = computed(() => store.highlightedItem?.link === props.item.link)
-const highlightedElement = computed(() => isHighlighted.value ? store.highlightedElement : null)
-const isLinkVisited = computed(() => store.isVisited(props.item, 'link'))
-const isCommentsVisited = computed(() => store.isVisited(props.item, 'comments'))
+const {
+  isHighlighted,
+  setHighlightedItem,
+  isVisited,
+  markVisited,
+} = useStore()
 
 const openLink = (item: FeedItem) => {
-  store.setHighlightedItem(item, 'link')
-  store.markVisited(item, 'link')
+  setHighlightedItem(item, 'link')
+  markVisited(item, 'link')
   window.open(item.link, '_blank')
 }
 </script>
@@ -28,14 +28,14 @@ const openLink = (item: FeedItem) => {
   <li
     tabindex="0"
     class="group transition-colors sm:hover:bg-muted/50 sm:hover:shadow-inner pl-6 pr-2 py-1 rounded-lg"
-    :class="{ 'outline outline-1 focus-visible:outline-2 outline-blue-500': isHighlighted }"
+    :class="{ 'outline outline-1 focus-visible:outline-2 outline-blue-500': isHighlighted(item) }"
     @keydown.self.enter="openLink(item)"
     @keydown.self.space="openLink(item)"
   >
     <div class="relative">
       <ClientOnly>
         <Icon
-          v-if="isLinkVisited"
+          v-if="isVisited(item, 'link')"
           name="mdi:check"
           class="absolute w-4 h-4 -left-5 top-2 text-slate-400"
         />
@@ -46,10 +46,10 @@ const openLink = (item: FeedItem) => {
         target="_blank"
         class="text-lg hover:underline block"
         :class="{
-          underline: highlightedElement === 'link',
+          underline: isHighlighted(item, 'link'),
         }"
-        @mouseup="store.setHighlightedItem(item, 'link')"
-        @click="store.markVisited(item, 'link')"
+        @mouseup="setHighlightedItem(item, 'link')"
+        @click="markVisited(item, 'link')"
       >
         {{ item.title }}
       </NuxtLink>
@@ -64,13 +64,13 @@ const openLink = (item: FeedItem) => {
         :href="item.comments"
         target="_blank"
         class="flex items-center hover:underline hover:text-primary sm:opacity-0 group-hover:opacity-100 group-focus:opacity-100 focus:opacity-100 transition-opacity"
-        :class="{ 'underline sm:opacity-100': highlightedElement === 'comments' }"
-        @mouseup="store.setHighlightedItem(item, 'comments')"
-        @click="store.markVisited(item, 'comments')"
+        :class="{ 'underline sm:opacity-100': isHighlighted(item, 'comments') }"
+        @mouseup="setHighlightedItem(item, 'comments')"
+        @click="markVisited(item, 'comments')"
       >
         <ClientOnly>
           <Icon
-            v-if="isCommentsVisited"
+            v-if="isVisited(item, 'comments')"
             name="mdi:check"
             class="w-4 h-4 text-slate-400"
           />

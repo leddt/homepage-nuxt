@@ -21,7 +21,10 @@ export const useStore = defineStore('feed', () => {
     )
   }
 
-  function setHighlightedItem(item: FeedItem, element: ItemElement) {
+  async function setHighlightedItem(item: FeedItem, element: ItemElement) {
+    clearHighlightedItem()
+    await nextTick()
+
     highlightedItem.value = item
     highlightedElement.value = element
   }

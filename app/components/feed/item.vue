@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useStore } from '~/composables/store'
-
-defineProps<{
+const props = defineProps<{
   item: FeedItem
 }>()
 
@@ -13,9 +11,14 @@ const now = useNow({ interval: 5000 })
 const {
   isHighlighted,
   setHighlightedItem,
+  clearHighlightedItem,
   isVisited,
   markVisited,
 } = useStore()
+
+const isItemHighlighted = computed(() => isHighlighted(props.item))
+const { opacity: highlightOpacity, isDone: isHighlightDone } = usePageReturnFadeout(isItemHighlighted)
+whenever(isHighlightDone, clearHighlightedItem)
 
 const openLink = (item: FeedItem) => {
   setHighlightedItem(item, 'link')
@@ -28,7 +31,7 @@ const openLink = (item: FeedItem) => {
   <li
     tabindex="0"
     class="group transition-colors sm:hover:bg-muted/50 sm:hover:shadow-inner pl-6 pr-2 py-1 rounded-lg"
-    :class="{ 'outline outline-1 focus-visible:outline-2 outline-blue-500': isHighlighted(item) }"
+    :style="{ transition: 'outline-color 0.1s', outline: isHighlighted(item) ? `1px solid rgba(59, 130, 246, ${highlightOpacity})` : '0px solid rgba(59, 130, 246, 1)' }"
     @keydown.self.enter="openLink(item)"
     @keydown.self.space="openLink(item)"
   >

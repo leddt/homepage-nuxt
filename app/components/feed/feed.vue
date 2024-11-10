@@ -9,7 +9,7 @@ const now = useNow({ interval: 5000 })
 
 <template>
   <Card class="transition-shadow hover:shadow-lg">
-    <CardHeader :class="color" class="sticky -top-5 bg-white z-10 rounded-t-lg border-b border-current pb-2 mb-4">
+    <CardHeader :class="color" class="sticky -top-5 bg-white/60 backdrop-blur z-10 rounded-t-lg border-b border-current pb-2 mb-4">
       <div class="flex flex-row items-center justify-between">
         <CardTitle class="flex items-center gap-2">
           <Icon :name="icon" class="w-6 h-6" />

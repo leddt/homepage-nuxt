@@ -25,6 +25,37 @@ const openLink = (item: FeedItem) => {
   markVisited(item, 'link')
   window.open(item.link, '_blank')
 }
+
+const timeColorStyle = computed(() => {
+  const itemDate = new Date(props.item.date)
+  const hoursAgo = (now.value.getTime() - itemDate.getTime()) / (1000 * 60 * 60)
+
+  // HSL interpolation with multiple stages over 24 hours
+  // green -> blue -> gray
+
+  const progress = Math.min(hoursAgo / 24, 1)
+
+  // green to blue in the first half
+  const hue = progress < 0.5
+    ? 142 + (progress * 150) // 142 to 217
+    : 217
+
+  // Saturation transitions in the second half
+  const saturation = progress > 0.5
+    ? 76 - ((progress - 0.5) * 2 * 56) // Fade from 76% to 20% in second half
+    : 76
+
+  // Brighter when very recent
+  const lightness = hoursAgo < 0.5
+    ? 36 + (hoursAgo * 50)
+    : 36
+
+  const alpha = 0.8
+
+  return {
+    color: `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`,
+  }
+})
 </script>
 
 <template>
@@ -62,7 +93,11 @@ const openLink = (item: FeedItem) => {
       </div>
       <div class="flex items-center justify-between gap-2 mt-1 text-sm text-muted-foreground">
         <span class="flex items-center">
-          <Icon name="mdi:calendar" class="w-4 h-4 mr-1" />
+          <Icon
+            name="mdi:calendar"
+            class="w-4 h-4 mr-1"
+            :style="timeColorStyle"
+          />
           <span :title="item.date">{{ formatDate(now, item.date, true) }}</span>
         </span>
         <NuxtLink

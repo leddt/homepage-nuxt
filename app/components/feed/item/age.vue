@@ -26,7 +26,7 @@ const timeColorStyle = computed(() => {
 
   // Brighter when very recent
   const lightness = hoursAgo < 0.5
-    ? 36 + (hoursAgo * 50)
+    ? 36 + ((0.5 - hoursAgo) * 50)
     : 36
 
   const alpha = 0.8

@@ -20,5 +20,8 @@ whenever(escape!, onEscape)
     <div class="grid md:grid-cols-2 gap-4 lg:gap-8">
       <Feed v-for="(feed, index) in feeds" :key="index" :feed />
     </div>
+    <div class="mt-4 lg:mt-8">
+      <XkcdComic />
+    </div>
   </div>
 </template>

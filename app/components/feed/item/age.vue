@@ -44,6 +44,6 @@ const timeColorStyle = computed(() => {
       class="w-4 h-4"
       :style="timeColorStyle"
     />
-    <span :title="item.date">{{ formatDate(now, item.date, true) }}</span>
+    <span :title="item.date">{{ formatTimeAgo(now, item.date, true) }}</span>
   </span>
 </template>

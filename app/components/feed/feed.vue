@@ -25,7 +25,7 @@ const now = useNow({ interval: 5000 })
         </Button>
       </div>
       <span class="text-xs opacity-75">
-        Last updated {{ formatDate(now, updatedAt) }}
+        Last updated {{ formatTimeAgo(now, updatedAt) }}
       </span>
     </CardHeader>
     <CardContent class="overflow-y-auto">

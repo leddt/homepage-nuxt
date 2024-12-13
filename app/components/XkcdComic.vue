@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { formatDate } from '~/utils/dates'
-
 const { data: comic, refetch } = useFetchQuery<string, XkcdComic>('/api/xkcd')
 const now = useNow({ interval: 5000 })
 
@@ -34,7 +32,7 @@ const comicUrl = computed(() => {
         </Button>
       </div>
       <span v-if="comicDate" class="text-xs opacity-75">
-        Posted {{ formatDate(now, comicDate) }}
+        Posted {{ formatDaysAgo(now, comicDate) }}
       </span>
     </CardHeader>
     <CardContent v-if="comic" class="space-y-4 text-center">

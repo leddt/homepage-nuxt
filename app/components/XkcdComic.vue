@@ -17,7 +17,7 @@ const comicUrl = computed(() => {
 </script>
 
 <template>
-  <Card class="transition-shadow hover:shadow-lg">
+  <Card class="transition-shadow hover:shadow-lg font-comic">
     <CardHeader class="sticky -top-5 bg-white/60 backdrop-blur z-10 rounded-t-lg border-b border-current pb-2 mb-4">
       <div class="flex flex-row items-center justify-between">
         <CardTitle class="flex items-center gap-2">

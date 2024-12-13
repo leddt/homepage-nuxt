@@ -15,6 +15,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        comic: ['"Comic Sans MS"', '"Comic Sans"', '"Chalkboard SE"', '"Comic Neue"', 'cursive'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

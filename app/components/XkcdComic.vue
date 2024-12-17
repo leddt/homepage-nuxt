@@ -12,6 +12,11 @@ const comicUrl = computed(() => {
   if (!comic.value) return null
   return `https://xkcd.com/${comic.value.num}/`
 })
+
+const explainXkcdUrl = computed(() => {
+  if (!comic.value) return null
+  return `https://explainxkcd.com/${comic.value.num}`
+})
 </script>
 
 <template>
@@ -36,9 +41,20 @@ const comicUrl = computed(() => {
       </span>
     </CardHeader>
     <CardContent v-if="comic" class="space-y-4 text-center">
-      <h4 class="text-3xl">
-        {{ comic.title }}
-      </h4>
+      <div class="flex items-center justify-center gap-2">
+        <h4 class="text-3xl">
+          {{ comic.title }}
+        </h4>
+        <a
+          v-if="explainXkcdUrl"
+          :href="explainXkcdUrl"
+          target="_blank"
+          title="Explain"
+          class="text-muted-foreground hover:text-primary transition-colors"
+        >
+          <Icon name="mdi:help-circle" class="w-5 h-5" />
+        </a>
+      </div>
       <a
         v-if="comicUrl"
         :href="comicUrl"

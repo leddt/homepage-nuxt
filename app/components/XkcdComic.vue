@@ -36,7 +36,7 @@ const comicUrl = computed(() => {
       </span>
     </CardHeader>
     <CardContent v-if="comic" class="space-y-4 text-center">
-      <h4 class="text-xl font-semibold">
+      <h4 class="text-3xl">
         {{ comic.title }}
       </h4>
       <a
@@ -47,7 +47,7 @@ const comicUrl = computed(() => {
       >
         <img :src="comic.img" :alt="comic.title" class="mx-auto">
       </a>
-      <p class="text-sm text-muted-foreground italic max-w-2xl mx-auto">
+      <p class="text-muted-foreground max-w-2xl mx-auto">
         {{ comic.alt }}
       </p>
     </CardContent>

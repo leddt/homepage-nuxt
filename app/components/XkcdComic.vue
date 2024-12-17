@@ -36,8 +36,9 @@ const explainXkcdUrl = computed(() => {
           <Icon name="mdi:refresh" class="w-5 h-5 transition-transform group-active:rotate-180 group-hover:rotate-45" />
         </Button>
       </div>
+
       <span v-if="comicDate" class="text-xs opacity-75">
-        Posted {{ formatDaysAgo(now, comicDate) }}
+        Posted <ClientOnly fallback="...">{{ formatDaysAgo(now, comicDate) }}</ClientOnly>
       </span>
     </CardHeader>
     <CardContent v-if="comic" class="space-y-4 text-center">

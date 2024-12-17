@@ -32,7 +32,7 @@ const timeColorStyle = computed(() => {
   const alpha = 0.8
 
   return {
-    color: `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`,
+    color: `hsla(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(lightness)}%, ${alpha})`,
   }
 })
 </script>

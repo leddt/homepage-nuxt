@@ -25,7 +25,7 @@ const explainXkcdUrl = computed(() => {
       <div class="flex flex-row items-center justify-between">
         <CardTitle class="flex items-center gap-2">
           <Icon name="mdi:chat" class="w-6 h-6" />
-          XKCD
+          xkcd
         </CardTitle>
         <Button
           variant="ghost"

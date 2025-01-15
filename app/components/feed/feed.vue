@@ -5,6 +5,13 @@ const props = defineProps<{
 
 const { title, icon, color, items, updatedAt, refetch } = props.feed
 const now = useNow({ interval: 5000 })
+
+const sortByDate = ref(false)
+const sortedItems = computed(() => {
+  if (!items.value) return []
+  if (!sortByDate.value) return items.value
+  return [...items.value].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+})
 </script>
 
 <template>
@@ -24,9 +31,31 @@ const now = useNow({ interval: 5000 })
           <Icon name="mdi:refresh" class="w-5 h-5 transition-transform group-active:rotate-180 group-hover:rotate-45" />
         </Button>
       </div>
-      <span class="text-xs opacity-75">
-        Last updated {{ formatTimeAgo(now, updatedAt) }}
-      </span>
+      <div class="flex gap-2 items-end justify-between text-sm">
+        <span class="text-xs opacity-75">
+          Last updated {{ formatTimeAgo(now, updatedAt) }}
+        </span>
+        <div v-if="feed.sortable" class="flex gap-1 mr-2 items-center text-xs whitespace-nowrap">
+          <span>sort by</span>
+          <button
+            class="transition-opacity"
+            :class="sortByDate ? 'opacity-50 cursor-pointer hover:underline' : ''"
+            :disabled="!sortByDate"
+            @click="sortByDate = false"
+          >
+            feed order
+          </button>
+          <span class="opacity-50">|</span>
+          <button
+            class="transition-opacity"
+            :class="!sortByDate ? 'opacity-50 cursor-pointer hover:underline' : ''"
+            :disabled="sortByDate"
+            @click="sortByDate = true"
+          >
+            date
+          </button>
+        </div>
+      </div>
     </CardHeader>
     <CardContent class="overflow-y-auto">
       <TransitionGroup
@@ -35,7 +64,7 @@ const now = useNow({ interval: 5000 })
         class="-mx-4 mt-px"
         name="list"
       >
-        <FeedItem v-for="item in items" :key="item.link" :item />
+        <FeedItem v-for="item in sortedItems" :key="item.link" :item />
       </TransitionGroup>
     </CardContent>
   </Card>

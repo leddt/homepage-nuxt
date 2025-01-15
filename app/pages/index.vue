@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const feeds = [
-  useFeed('hn', 'Hacker News', 'ion:logo-hackernews', 'text-orange-500'),
-  useFeed('sd', 'Slashdot', 'simple-icons:slashdot', 'text-emerald-500'),
+  useFeed('hn', 'Hacker News', 'ion:logo-hackernews', 'text-orange-500', true),
+  useFeed('sd', 'Slashdot', 'simple-icons:slashdot', 'text-emerald-500', false),
 ]
 
 const { clearHighlightedItem } = useStore()

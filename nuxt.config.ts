@@ -25,6 +25,10 @@ export default defineNuxtConfig({
     './assets/css/fonts.css',
   ],
 
+  colorMode: {
+    classSuffix: '',
+  },
+
   // Env variables - https://nuxt.com/docs/getting-started/configuration#environment-variables-and-private-tokens
   runtimeConfig: {
     public: {

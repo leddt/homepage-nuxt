@@ -62,7 +62,7 @@ const explainXkcdUrl = computed(() => {
         target="_blank"
         class="inline-block hover:opacity-90 transition-opacity"
       >
-        <img :src="comic.img" :alt="comic.title" class="mx-auto">
+        <img :src="comic.img" :alt="comic.title" class="mx-auto dark:brightness-75">
       </a>
       <p class="text-muted-foreground max-w-2xl mx-auto">
         {{ comic.alt }}

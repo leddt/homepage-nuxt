@@ -12,4 +12,5 @@ useHead({
   <div class="z-10 relative">
     <NuxtPage />
   </div>
+  <ThemePicker />
 </template>

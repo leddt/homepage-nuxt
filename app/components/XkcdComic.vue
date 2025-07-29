@@ -122,7 +122,7 @@ onUnmounted(() => {
           @click="isFullscreen = false"
         >
           <div
-            class="bg-card border rounded-lg shadow-2xl max-w-4xl max-h-[90vh] overflow-y-auto"
+            class="bg-card border rounded-lg shadow-2xl max-w-[90vw] max-h-[90vh] overflow-y-auto"
             @click.stop
           >
             <div class="p-6 border-b border-border">
@@ -173,7 +173,7 @@ onUnmounted(() => {
                   <img
                     :src="comic.img"
                     :alt="comic.title"
-                    class="max-w-full max-h-[60vh] object-contain dark:invert dark:hue-rotate-180 dark:opacity-80"
+                    class="dark:invert dark:hue-rotate-180 dark:opacity-80"
                   >
                 </a>
               </div>

@@ -21,11 +21,15 @@ const explainXkcdUrl = computed(() => {
 // Fullscreen state
 const isFullscreen = ref(false)
 
+// Zoom animation composable
+const { isZoomed, currentZoom, toggleZoom, resetZoom } = useZoomAnimation()
+
 // Handle escape key to close fullscreen
 const { escape } = useMagicKeys()
 whenever(escape!, () => {
   if (isFullscreen.value) {
     isFullscreen.value = false
+    resetZoom()
   }
 })
 
@@ -36,6 +40,7 @@ watch(isFullscreen, (newValue) => {
   }
   else {
     document.body.style.overflow = ''
+    resetZoom()
   }
 })
 
@@ -99,7 +104,7 @@ onUnmounted(() => {
         target="_blank"
         class="inline-block hover:opacity-90 transition-opacity"
       >
-        <img :src="comic.img" :alt="comic.title" class="mx-auto dark:invert dark:hue-rotate-180 dark:opacity-80">
+        <img :src="comic.img" :alt="comic.title" class="mx-auto dark:invert dark:hue-rotate-180 dark:opacity-80 dark:mix-blend-lighten">
       </a>
       <p class="text-muted-foreground max-w-2xl mx-auto">
         {{ comic.alt }}
@@ -146,6 +151,18 @@ onUnmounted(() => {
                   <Button
                     variant="ghost"
                     size="icon"
+                    :title="isZoomed ? 'Zoom out' : 'Zoom in'"
+                    class="text-muted-foreground hover:text-primary"
+                    @click="toggleZoom"
+                  >
+                    <Icon
+                      :name="isZoomed ? 'mdi:magnify-minus' : 'mdi:magnify-plus'"
+                      class="w-5 h-5"
+                    />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     title="Close fullscreen"
                     @click="isFullscreen = false"
                   >
@@ -168,12 +185,13 @@ onUnmounted(() => {
                   v-if="comicUrl"
                   :href="comicUrl"
                   target="_blank"
-                  class="inline-block hover:opacity-90 transition-opacity"
+                  class="inline-block transition-opacity"
                 >
                   <img
                     :src="comic.img"
                     :alt="comic.title"
-                    class="dark:invert dark:hue-rotate-180 dark:opacity-80"
+                    :style="{ zoom: currentZoom }"
+                    class="dark:invert dark:hue-rotate-180 dark:mix-blend-lighten image-rendering-pixelated"
                   >
                 </a>
               </div>

@@ -1,4 +1,5 @@
 const animate = require('tailwindcss-animate')
+const plugin = require('tailwindcss/plugin')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -85,5 +86,14 @@ module.exports = {
       },
     },
   },
-  plugins: [animate],
+  plugins: [
+    animate,
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.image-rendering-pixelated': {
+          'image-rendering': 'pixelated',
+        },
+      })
+    }),
+  ],
 }

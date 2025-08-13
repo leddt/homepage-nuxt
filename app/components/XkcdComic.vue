@@ -191,7 +191,7 @@ onUnmounted(() => {
                     :src="comic.img"
                     :alt="comic.title"
                     :style="{ zoom: currentZoom }"
-                    class="dark:invert dark:hue-rotate-180 dark:mix-blend-lighten image-rendering-pixelated"
+                    class="dark:invert dark:hue-rotate-180 dark:mix-blend-lighten"
                   >
                 </a>
               </div>

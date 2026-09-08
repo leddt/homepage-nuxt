@@ -28,14 +28,20 @@ pnpm build
 
 ## Deploy
 
-
-Deploy the application on the Edge with [NuxtHub](https://hub.nuxt.com) on your Cloudflare account:
+Deploy to [Cloudflare Workers](https://developers.cloudflare.com/workers/) with Wrangler:
 
 ```bash
-npx nuxthub deploy
+pnpm deploy
 ```
 
-Then checkout your server logs, analaytics and more in the [NuxtHub Admin](https://admin.hub.nuxt.com).
+Or build then deploy separately:
 
-You can also deploy using [Cloudflare Pages CI](https://hub.nuxt.com/docs/getting-started/deploy#cloudflare-pages-ci).
+```bash
+pnpm build
+pnpm exec wrangler deploy
+```
 
+CI deploys on every push via GitHub Actions. Required repository secrets:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`

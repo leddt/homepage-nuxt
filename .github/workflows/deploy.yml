@@ -1,4 +1,4 @@
-name: Deploy with NuxtHub CLI
+name: Deploy to Cloudflare Workers
 on: push
 jobs:
   build-and-deploy:
@@ -28,9 +28,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
-
-      - name:  Deploy with nuxthub
-        run: npx nuxthub deploy
+      - name: Build
+        run: pnpm build
+      - name: Deploy
+        run: pnpm exec wrangler deploy
         env:
-          NUXT_HUB_PROJECT_KEY: ${{ secrets.NUXT_HUB_PROJECT_KEY}}
-          NUXT_HUB_USER_TOKEN: ${{ secrets.NUXT_HUB_USER_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -4,6 +4,16 @@ const props = defineProps<{
 }>()
 
 const colorMode = useColorMode()
+const isDark = ref(true)
+
+function syncDark() {
+  isDark.value = document.documentElement.classList.contains('dark')
+}
+
+onMounted(() => {
+  syncDark()
+  watch(() => colorMode.value, syncDark)
+})
 
 function lerpChannel(a: number, b: number, t: number) {
   return Math.round(a + (b - a) * t)
@@ -20,9 +30,8 @@ function lerpRgb(
 const scoreColorStyle = computed(() => {
   if (props.item.score == null) return undefined
 
-  const isDark = colorMode.value === 'dark'
-  // Low scores should stay low-contrast against the page background
-  const mutedGray: [number, number, number] = isDark ? [70, 70, 70] : [180, 180, 180]
+  // Assume dark until mounted; low scores should stay low-contrast against the page background
+  const mutedGray: [number, number, number] = isDark.value ? [70, 70, 70] : [180, 180, 180]
   const yellowOrange: [number, number, number] = [245, 158, 11]
   const brightRed: [number, number, number] = [255, 0, 0]
 

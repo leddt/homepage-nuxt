@@ -3,6 +3,8 @@ interface FeedItem {
   link: string
   date: string
   comments?: string
+  score?: number
+  commentCount?: number
 }
 
 interface Feed {

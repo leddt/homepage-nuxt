@@ -62,6 +62,10 @@ const openLink = (item: FeedItem) => {
       <div class="flex items-center justify-between gap-2 mt-1 text-sm text-muted-foreground">
         <span class="flex items-center flex-wrap gap-2">
           <FeedItemAge :item="item" />
+          <template v-if="item.score != null">
+            <Separator class="h-4" orientation="vertical" />
+            <FeedItemScore :item="item" />
+          </template>
           <Separator class="h-4" orientation="vertical" />
           <FeedItemDomain class="opacity-50 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity" :item="item" />
         </span>
@@ -82,7 +86,7 @@ const openLink = (item: FeedItem) => {
             />
           </ClientOnly>
           <Icon name="mdi:message" class="w-4 h-4 mr-1" />
-          <span>Comments</span>
+          <span>{{ item.commentCount != null ? item.commentCount : 'Comments' }}</span>
         </NuxtLink>
       </div>
     </div>

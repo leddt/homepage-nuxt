@@ -1,5 +1,5 @@
-export function useFeed(id: string, title: string, icon: string, color: string, sortable: boolean): Feed {
-  const feed = useFetchQuery(`/api/feed/${id}`)
+export function useFeed(url: string, title: string, icon: string, color: string, sortable: boolean): Feed {
+  const feed = useFetchQuery(url)
   return {
     title,
     icon,

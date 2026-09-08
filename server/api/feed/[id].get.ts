@@ -1,7 +1,6 @@
 import { extract } from '@extractus/feed-extractor'
 
 const feeds = {
-  hn: 'https://news.ycombinator.com/rss',
   sd: 'https://slashdot.org/index.rss',
 }
 
@@ -22,7 +21,6 @@ export default defineEventHandler(async (event) => {
 
   const feed = await extract(feedUrl, {
     getExtraEntryFields: (entry) => {
-      // console.log(entry)
       return {
         comments: 'comments' in entry ? entry.comments as string : undefined,
       }
@@ -43,7 +41,6 @@ export default defineEventHandler(async (event) => {
       link: item.link || '',
       date: item.published || '',
       comments: item.comments,
-      // raw: item,
     }))
 })
 

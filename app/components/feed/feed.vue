@@ -6,11 +6,16 @@ const props = defineProps<{
 const { title, icon, color, items, updatedAt, refetch } = props.feed
 const now = useNow({ interval: 5000 })
 
-const sortByDate = ref(false)
+type SortMode = 'rank' | 'date' | 'score'
+const sortMode = ref<SortMode>('rank')
+
 const sortedItems = computed(() => {
   if (!items.value) return []
-  if (!sortByDate.value) return items.value
-  return [...items.value].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  if (sortMode.value === 'rank') return items.value
+  if (sortMode.value === 'date') {
+    return [...items.value].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  }
+  return [...items.value].sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
 })
 </script>
 
@@ -37,23 +42,17 @@ const sortedItems = computed(() => {
         </span>
         <div v-if="feed.sortable" class="flex gap-1 mr-2 items-center text-xs whitespace-nowrap">
           <span>sort by</span>
-          <button
-            class="transition-opacity"
-            :class="sortByDate ? 'opacity-50 cursor-pointer hover:underline' : ''"
-            :disabled="!sortByDate"
-            @click="sortByDate = false"
-          >
-            feed order
-          </button>
-          <span class="opacity-50">|</span>
-          <button
-            class="transition-opacity"
-            :class="!sortByDate ? 'opacity-50 cursor-pointer hover:underline' : ''"
-            :disabled="sortByDate"
-            @click="sortByDate = true"
-          >
-            date
-          </button>
+          <template v-for="(mode, index) in (['rank', 'date', 'score'] as const)" :key="mode">
+            <span v-if="index > 0" class="opacity-50">|</span>
+            <button
+              class="transition-opacity"
+              :class="sortMode !== mode ? 'opacity-50 cursor-pointer hover:underline' : ''"
+              :disabled="sortMode === mode"
+              @click="sortMode = mode"
+            >
+              {{ mode }}
+            </button>
+          </template>
         </div>
       </div>
     </CardHeader>

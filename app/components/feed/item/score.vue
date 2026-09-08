@@ -23,7 +23,7 @@ const scoreColorStyle = computed(() => {
   const score = props.item.score
 
   // 0–250: muted (currentColor) → orange
-  // 250–500: orange → bright red
+  // 250–1000: orange → bright red
   if (score <= 250) {
     const t = score / 250
     return {
@@ -32,7 +32,7 @@ const scoreColorStyle = computed(() => {
   }
 
   return {
-    color: lerpRgb(yellowOrange, brightRed, Math.min((score - 250) / 250, 1)),
+    color: lerpRgb(yellowOrange, brightRed, Math.min((score - 250) / 750, 1)),
   }
 })
 </script>

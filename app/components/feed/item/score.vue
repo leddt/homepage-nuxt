@@ -15,8 +15,10 @@ function lerpRgb(
   return `rgb(${lerpChannel(from[0], to[0], t)}, ${lerpChannel(from[1], to[1], t)}, ${lerpChannel(from[2], to[2], t)})`
 }
 
+const isLegendary = computed(() => isLegendaryItem(props.item))
+
 const scoreColorStyle = computed(() => {
-  if (props.item.score == null) return undefined
+  if (props.item.score == null || isLegendary.value) return undefined
 
   const yellowOrange: [number, number, number] = [245, 158, 11]
   const brightRed: [number, number, number] = [255, 0, 0]
@@ -40,9 +42,21 @@ const scoreColorStyle = computed(() => {
 <template>
   <span
     v-if="item.score != null"
+    :class="{ 'score--legendary': isLegendary }"
     :title="`${item.score} points`"
     :style="scoreColorStyle"
   >
     {{ item.score }}&nbsp;pts.
   </span>
 </template>
+
+<style scoped>
+.score--legendary {
+  font-weight: 700;
+  color: #fffbeb;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.95),
+    0 0 10px rgba(253, 224, 71, 1),
+    0 0 22px rgba(245, 158, 11, 0.9);
+}
+</style>
